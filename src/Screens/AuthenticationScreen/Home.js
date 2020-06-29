@@ -72,7 +72,7 @@ export default function Home(props) {
                     </div>
                     <h2 className={"head"}>My Appointments</h2>
                     <div className={"parent-card"}>
-                        {clients.map((client,index)=>(
+                        {clients!=undefined?clients.map((client,index)=>(
                             <div className="card" key={index}>
                                 <div className="container" >
                                     <h4><b>{client.email}</b></h4>
@@ -81,7 +81,7 @@ export default function Home(props) {
                                 <a onClick={e => {reject(client)}} className="reject">Reject</a>
                             </div>
 
-                        ))}
+                        )):(<></>)}
                     </div>
                 </div>
                 )}

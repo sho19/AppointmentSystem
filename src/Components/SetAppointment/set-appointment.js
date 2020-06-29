@@ -20,6 +20,10 @@ export default function SetAppointment() {
         event.preventDefault();
         var regex=/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/i;
         if(regex.test(fromTime)&&regex.test(toTime)){
+            if(fromTime==toTime){
+                alert("Start and to time cannot be same")
+            }
+            else{
             setloading(true);
             const options = {
                 url: `https://myappointmentsystem.herokuapp.com/setAvailableTime/${userData.userName}`,
@@ -33,7 +37,7 @@ export default function SetAppointment() {
                 .then((response) => {
                     let result = response.data;
                     console.log(result, 'ee');
-                    if (result == 'deleted successfully') {
+                    if (result == 'updated sucessfully') {
                         console.log(response.toString());
                     }
                     setloading(false);
@@ -42,6 +46,7 @@ export default function SetAppointment() {
                     setloading(false);
                     console.log(e, 'ee');
                 });
+            }
         }
         else{
             alert("invalid date or time format")
@@ -55,7 +60,7 @@ export default function SetAppointment() {
             <FormInput name={"fromTime"} value={fromTime} required onChange={handleChange} label={"From Time format:hh:mm"}/>
             <FormInput  value={toTime} required name={"toTime"} onChange={handleChange} label={"To Time format: hh:mm"}/>
             <div className="buttons">
-                <CustomButton type={"submit"} value={"Submit Form"} >Sign in</CustomButton>
+                <CustomButton type={"submit"} value={"Submit Form"} >SET TIME</CustomButton>
             </div>
             </form>
         </div>
