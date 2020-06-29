@@ -1,30 +1,29 @@
 import React,{useState, useEffect} from "react";
 import "./SignInSignUp.scss";
-import FormInput from "../form-input/form-input.component";
-import CustomButton from "../custom-button/custom-Button.component";
-import CustomLinkComponent from "../LinkStyles/Link-Button.component";
+import FormInput from "../../Components/form-input/form-input.component";
+import CustomButton from "../../Components/custom-button/custom-Button.component";
+import CustomLinkComponent from "../../Components/LinkStyles/Link-Button.component";
+import {AuthContext} from '../../contexts/AuthContext';
+
 
 export default function RegisterationComponent() {
-    const [inputs, setInputs] = useState({
-        name: '',
-        email: '',
-        password: '',
-        description: '',
-    });
-    const {name, email, password, description} = inputs;
+
+    const [name, setName] = React.useState('');
+    const [email, setEmail] = React.useState('');
+    const [password, setPassword] = React.useState('');
+    const [description, setdescription] = React.useState('');
+    const {signUp} = React.useContext(AuthContext);
+
     const handleSubmit = async event =>{
         event.preventDefault();
-        try {
-        }
-        catch (e) {
-            console.log(e)
-        }
+        signUp({name, email, password, description});
     };
-
 
     const handleChange = event =>{
         const { name, value } = event.target;
-        setInputs(inputs => ({ ...inputs, [name]: value }));
+        // setInputs(inputs => ({ ...inputs, [name]: value }));
+        name=="email"?setEmail(value):name=="name"?setName(value):name=="password"?setPassword(value):setdescription(value)
+
     };
 
 
@@ -39,7 +38,7 @@ export default function RegisterationComponent() {
                 <FormInput name={"description"} value={description} required onChange={handleChange} label={"Description"}/>
                 <div className="buttons">
                     <CustomButton type={"submit"} value={"Submit Form"} >Sign Up</CustomButton>
-                    <CustomLinkComponent to='/sign-in'>
+                    <CustomLinkComponent to='/'>
                         LOGIN
                     </CustomLinkComponent>
                 </div>
